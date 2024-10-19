@@ -2,20 +2,53 @@
 
 
 int main() {
-    struct Player player;
     char* map[HEIGHT][WIDTH];
     struct Monsters mob;
-    player.x = 5;
-    player.y = 5;
-    player.hp = 10;
-    player.attak = 5;
-    player.gold = 0;
-    player.sunduk = 0;
+    int ch = 0;
+    struct Player player = initPlayer();
+    initscr();
+    noecho();
+    curs_set(FALSE);
     dungeons(map);
     mob = Summon_Monsters();
-    graphic(player, map, mob);
+    while (ch != 'q')
+    {
+        ch = getch();
+        switch (ch) {
+            case 'w':
+                player.x--;
+                break;
+            case 's':
+                player.x++;
+                break;
+            case 'a':
+                player.y--;
+                break;
+            case 'd':
+                player.y++;
+                break;
+        }   
+        clear();
+        graphic(player, map, mob);
+        refresh();
+        //usleep(500 * 1000);
+    }
+    endwin();
     return 0;
 }
+
+struct Player initPlayer() {
+    struct Player player;
+    player.x = 10;
+    player.y = 10;
+    player.hp = 10;
+    player.attak = 1;
+    player.gold = 0;
+    player.sunduk = 0;
+
+    return player;
+}
+
 
 void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob) {
     for (int i = 0; i < HEIGHT; i++)
@@ -23,17 +56,16 @@ void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob
         for (int j = 0; j < WIDTH; j++)
         {
             if(i == player.x && j == player.y){
-                printf("@");
+                printw("@");
             } else if(i == mob.x && j == mob.y){
-                printf("%c", mob.pointer);
+                printw("%c", mob.pointer);
             } else {
-                printf("%s", map[i][j]);
+                printw("%s", map[i][j]);
             }
         }
-        Player_Info(i, player);
-        printf("\n");
+        player_info(i, player);
+        printw("\n");
     }
-    
 }
 
 void dungeons(char* map[HEIGHT][WIDTH]) {
@@ -67,18 +99,18 @@ struct Monsters Summon_Monsters() {
 
 void player_info(int i, struct Player player) {
     if (i == 1) {
-        printf("  Hello player");
+        printw("  Hello player");
     }
     else if (i == 2) {
-        printf("  HP : %d", player.hp);
+        printw("  HP : %d", player.hp);
     }
     else if (i == 3 ) {
-        printf ("  Attak : %d", player.attak);
+        printw("  Attak : %d", player.attak);
     }
     else if (i == 4) {
-        printf ("  Gold : %d", player.gold);
+        printw("  Gold : %d", player.gold);
     }
     else if (i == 5) {
-        printf("  Sunduk : %d", player.sunduk);
+        printw("  Sunduk : %d", player.sunduk);
     }
 }
