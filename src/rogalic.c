@@ -14,24 +14,24 @@ int main() {
     while (ch != 'q')
     {
         ch = getch();
-        switch (ch) {
+        switch (ch)
+        {
             case 'w':
-                player.x--;
+                if(player.x - 1 > 0) player.x--;
                 break;
             case 's':
-                player.x++;
+                if(player.x + 1 < HEIGHT - 1) player.x++;
                 break;
             case 'a':
-                player.y--;
+                if(player.y - 1 > 0) player.y--;
                 break;
             case 'd':
-                player.y++;
+                if(player.y + 1 < WIDTH - 1)player.y++;
                 break;
-        }   
+        }
         clear();
         graphic(player, map, mob);
         refresh();
-        //usleep(500 * 1000);
     }
     endwin();
     return 0;
@@ -48,7 +48,6 @@ struct Player initPlayer() {
 
     return player;
 }
-
 
 void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob) {
     for (int i = 0; i < HEIGHT; i++)
