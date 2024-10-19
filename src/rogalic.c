@@ -8,6 +8,9 @@ int main() {
     player.x = 5;
     player.y = 5;
     player.hp = 10;
+    player.attak = 5;
+    player.gold = 0;
+    player.sunduk = 0;
     dungeons(map);
     mob = Summon_Monsters();
     graphic(player, map, mob);
@@ -46,7 +49,6 @@ void dungeons(char* map[HEIGHT][WIDTH]) {
                 map[i][j] = " ";
             }
         }
-        
     }
     
 }
@@ -63,13 +65,20 @@ struct Monsters Summon_Monsters() {
     return goblin;
 }
 
-// Функция для вывода информации о пользователи с права от карты
-// Выводим HP ATTAK GOLD Сундуков
-// Описание клавиш
-void Player_Info(int i, struct Player player) {
-    if(i == 1) {
-        printf("  Hello Player Name");
-    } else if (i == 2) {
-        printf("  HP: %d", player.hp);
+void player_info(int i, struct Player player) {
+    if (i == 1) {
+        printf("  Hello player");
+    }
+    else if (i == 2) {
+        printf("  HP : %d", player.hp);
+    }
+    else if (i == 3 ) {
+        printf ("  Attak : %d", player.attak);
+    }
+    else if (i == 4) {
+        printf ("  Gold : %d", player.gold);
+    }
+    else if (i == 5) {
+        printf("  Sunduk : %d", player.sunduk);
     }
 }
