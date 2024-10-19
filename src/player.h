@@ -1,3 +1,5 @@
+#ifndef PLAYER_H
+#define PLAYER_H
 struct Player {
     int x;
     int y;
@@ -6,3 +8,9 @@ struct Player {
     int gold;
     int sunduk;
 };
+
+
+void moveple(struct Player *p, int ch);
+
+
+#endif

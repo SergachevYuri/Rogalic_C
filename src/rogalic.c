@@ -1,4 +1,6 @@
 #include "rogalic.h"
+#include "player.h"
+
 
 
 int main() {
@@ -14,20 +16,9 @@ int main() {
     while (ch != 'q')
     {
         ch = getch();
-        switch (ch)
-        {
-            case 'w':
-                if(player.x - 1 > 0) player.x--;
-                break;
-            case 's':
-                if(player.x + 1 < HEIGHT - 1) player.x++;
-                break;
-            case 'a':
-                if(player.y - 1 > 0) player.y--;
-                break;
-            case 'd':
-                if(player.y + 1 < WIDTH - 1)player.y++;
-                break;
+        moveple(&player, ch);
+        if(check_kill(&player, mob)) {
+            mob = Summon_Monsters();
         }
         clear();
         graphic(player, map, mob);
@@ -47,6 +38,15 @@ struct Player initPlayer() {
     player.sunduk = 0;
 
     return player;
+}
+
+int check_kill(struct Player *p, struct Monsters m) {
+    if (p->x == m.x && p->y == m.y) {
+        p->gold = p->gold + 10;
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob) {
@@ -86,8 +86,8 @@ void dungeons(char* map[HEIGHT][WIDTH]) {
 
 struct Monsters Summon_Monsters() {
     struct Monsters goblin;
-    goblin.x = 20;
-    goblin.y = 20;
+    goblin.x = rand() % (HEIGHT + 1 - 1) + 1;
+    goblin.y = rand() % (WIDTH + 1 - 1) + 1;
     goblin.pointer = 'g';
     goblin.hp = 2;
     goblin.attak = 2;
