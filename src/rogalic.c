@@ -8,6 +8,9 @@ int main() {
     player.x = 5;
     player.y = 5;
     player.hp = 10;
+    player.attak = 5;
+    player.gold = 0;
+    player.sunduk = 0;
     dungeons(map);
     mob = Summon_Monsters();
     graphic(player, map, mob);
@@ -37,7 +40,7 @@ void dungeons(char* map[HEIGHT][WIDTH]) {
     {
         for (int j = 0; j < WIDTH; j++)
         {
-            if((i == 0 && j != 0 && j != WIDTH) || (i == HEIGHT - 1 && j != 0 && j != WIDTH)) {
+            if((i == 0 && j != 0 && j != WIDTH - 1) || (i == HEIGHT - 1 && j != 0 && j != WIDTH - 1)) {
                 map[i][j] = "#";
             } else if((i != 0 && i != HEIGHT - 1 && j == 0) || (i != 0 && i != HEIGHT - 1 && j == WIDTH - 1)){
                 map[i][j] = "#";
@@ -45,7 +48,6 @@ void dungeons(char* map[HEIGHT][WIDTH]) {
                 map[i][j] = " ";
             }
         }
-        
     }
     
 }
@@ -60,4 +62,22 @@ struct Monsters Summon_Monsters() {
     strcpy(goblin.name, "Goblin Moblin");
 
     return goblin;
+}
+
+void player_info(int i, struct Player player) {
+    if (i == 1) {
+        printf("  Hello player");
+    }
+    else if (i == 2) {
+        printf("  HP : %d", player.hp);
+    }
+    else if (i == 3 ) {
+        printf ("  Attak : %d", player.attak);
+    }
+    else if (i == 4) {
+        printf ("  Gold : %d", player.gold);
+    }
+    else if (i == 5) {
+        printf("  Sunduk : %d", player.sunduk);
+    }
 }
