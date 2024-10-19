@@ -18,3 +18,21 @@ void moveple(struct Player *p, int ch) {
             break;
     }
 }
+
+void player_info(int i, struct Player player) {
+    if (i == 1) {
+        printw("  Hello %s", player.name);
+    }
+    else if (i == 2) {
+        printw("  HP : %d", player.hp);
+    }
+    else if (i == 3 ) {
+        printw("  Attak : %d", player.attak);
+    }
+    else if (i == 4) {
+        printw("  Gold : %d", player.gold);
+    }
+    else if (i == 5) {
+        printw("  Sunduk : %d", player.sunduk);
+    }
+}

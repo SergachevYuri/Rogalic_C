@@ -3,16 +3,19 @@
 
 
 int main() {
+    setlocale(LC_CTYPE, "ru_RU.UTF8");
     char* map[HEIGHT][WIDTH];
     struct Monsters mob;
     int ch = 0;
-    struct Player player = initPlayer();
     srand(time(0));
+    system("clear");
+    struct Player player = initPlayer();
     initscr();
     noecho();
     curs_set(FALSE);
     dungeons(map);
     mob = Summon_Monsters();
+    graphic(player, map, mob);
     while (ch != 'q')
     {
         ch = getch();
@@ -36,6 +39,11 @@ struct Player initPlayer() {
     player.attak = 1;
     player.gold = 0;
     player.sunduk = 0;
+    printf("Ты просыпаешься в холодном, тёмном подземелье, окружённый древними каменными стенами, покрытыми плесенью и паутиной. В воздухе стоит затхлый запах, а где-то вдали слышны тихие капли воды, падающие на пол. Твоя голова пульсирует от недавнего удара, воспоминания о произошедшем размыты. Ты помнишь, как стоял перед воротами величественного города, который когда-то был процветающим, но теперь лежит в руинах. Ходят легенды, что в его подземельях скрыты древние сокровища, но ещё чаще рассказывают о тех, кто оттуда не вернулся.\n");
+    printf("На твоём поясе — скромное оружие и горсть провизии. Твои мысли обрываются, когда впереди раздаются шаги и злобное хихиканье. Гоблины. Эти мерзкие существа захватили подземелья после падения города, обжились в них и стали ещё более дерзкими. Но за гоблинами всегда скрывается нечто большее — легенды шепчут о древнем зле, которое веками покоилось в самых глубинах.\n");
+    printf("Теперь твоё время пришло. Ты должен выжить, выбраться из этих проклятых коридоров и найти ответы: что здесь произошло? Почему все, кто осмеливался зайти сюда, исчезли? И какова твоя настоящая роль в этой тёмной истории?\n");
+    printf("Но прежде чем ты начнёшь свой путь, как тебя зовут, герой?\n");
+    scanf("%s", player.name);
 
     return player;
 }
@@ -67,23 +75,6 @@ void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob
     }
 }
 
-void dungeons(char* map[HEIGHT][WIDTH]) {
-    for (int i = 0; i < HEIGHT; i++)
-    {
-        for (int j = 0; j < WIDTH; j++)
-        {
-            if((i == 0 && j != 0 && j != WIDTH - 1) || (i == HEIGHT - 1 && j != 0 && j != WIDTH - 1)) {
-                map[i][j] = "#";
-            } else if((i != 0 && i != HEIGHT - 1 && j == 0) || (i != 0 && i != HEIGHT - 1 && j == WIDTH - 1)){
-                map[i][j] = "#";
-            } else {
-                map[i][j] = " ";
-            }
-        }
-    }
-    
-}
-
 struct Monsters Summon_Monsters() {
     struct Monsters goblin;
     goblin.x = rand() % (HEIGHT + 1 - 1) + 1;
@@ -94,22 +85,4 @@ struct Monsters Summon_Monsters() {
     strcpy(goblin.name, "Goblin Moblin");
 
     return goblin;
-}
-
-void player_info(int i, struct Player player) {
-    if (i == 1) {
-        printw("  Hello player");
-    }
-    else if (i == 2) {
-        printw("  HP : %d", player.hp);
-    }
-    else if (i == 3 ) {
-        printw("  Attak : %d", player.attak);
-    }
-    else if (i == 4) {
-        printw("  Gold : %d", player.gold);
-    }
-    else if (i == 5) {
-        printw("  Sunduk : %d", player.sunduk);
-    }
 }
