@@ -2,12 +2,12 @@
 #include "player.h"
 
 
-
 int main() {
     char* map[HEIGHT][WIDTH];
     struct Monsters mob;
     int ch = 0;
     struct Player player = initPlayer();
+    srand(time(0));
     initscr();
     noecho();
     curs_set(FALSE);
