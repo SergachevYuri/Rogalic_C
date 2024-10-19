@@ -1,6 +1,12 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef PLAYER_H_
+#define PLAYER_H_
+#include "constant.h"
+#include "rogalic.h"
+
+
+
 struct Player {
+    char name[20];
     int x;
     int y;
     int hp;
@@ -9,8 +15,10 @@ struct Player {
     int sunduk;
 };
 
+struct Player initPlayer();
+void move_usr(struct Player *p, int ch);
+void player_info(int i, struct Player player);
 
-void moveple(struct Player *p, int ch);
 
 
 #endif

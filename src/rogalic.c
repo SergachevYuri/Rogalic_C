@@ -1,22 +1,21 @@
 #include "rogalic.h"
-#include "player.h"
-
 
 int main() {
     char* map[HEIGHT][WIDTH];
     struct Monsters mob;
     int ch = 0;
+    system("clear");
     struct Player player = initPlayer();
-    srand(time(0));
-    initscr();
-    noecho();
-    curs_set(FALSE);
+
+    init_games();
+
     dungeons(map);
     mob = Summon_Monsters();
+    graphic(player, map, mob);
     while (ch != 'q')
     {
         ch = getch();
-        moveple(&player, ch);
+        move_usr(&player, ch);
         if(check_kill(&player, mob)) {
             mob = Summon_Monsters();
         }
@@ -28,16 +27,11 @@ int main() {
     return 0;
 }
 
-struct Player initPlayer() {
-    struct Player player;
-    player.x = 10;
-    player.y = 10;
-    player.hp = 10;
-    player.attak = 1;
-    player.gold = 0;
-    player.sunduk = 0;
-
-    return player;
+void init_games() {
+    srand(time(0));
+    initscr();
+    noecho();
+    curs_set(FALSE);
 }
 
 int check_kill(struct Player *p, struct Monsters m) {
@@ -50,6 +44,11 @@ int check_kill(struct Player *p, struct Monsters m) {
 }
 
 void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob) {
+    start_color(); // Инициализация цветов ncurses
+    init_pair(1, COLOR_YELLOW, COLOR_BLACK); // Красный текст на черном фоне
+    init_pair(2, COLOR_RED, COLOR_BLACK); // Зеленый текст на черном фоне
+    init_pair(3, COLOR_GREEN, COLOR_BLACK); // Желтый текст на черном фоне
+
     for (int i = 0; i < HEIGHT; i++)
     {
         for (int j = 0; j < WIDTH; j++)
@@ -57,7 +56,19 @@ void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob
             if(i == player.x && j == player.y){
                 printw("@");
             } else if(i == mob.x && j == mob.y){
+                switch (mob.pointer) {
+                    case 'g':
+                        attron(COLOR_PAIR(1));
+                        break;
+                    case 't':
+                        attron(COLOR_PAIR(2));
+                        break;
+                    case 'o':
+                        attron(COLOR_PAIR(3));
+                        break;
+                }
                 printw("%c", mob.pointer);
+                attroff(COLOR_PAIR(1) | COLOR_PAIR(2) | COLOR_PAIR(3));
             } else {
                 printw("%s", map[i][j]);
             }
@@ -65,51 +76,18 @@ void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob
         player_info(i, player);
         printw("\n");
     }
-}
-
-void dungeons(char* map[HEIGHT][WIDTH]) {
-    for (int i = 0; i < HEIGHT; i++)
+    printw("\n");
+    switch (mob.pointer)
     {
-        for (int j = 0; j < WIDTH; j++)
-        {
-            if((i == 0 && j != 0 && j != WIDTH - 1) || (i == HEIGHT - 1 && j != 0 && j != WIDTH - 1)) {
-                map[i][j] = "#";
-            } else if((i != 0 && i != HEIGHT - 1 && j == 0) || (i != 0 && i != HEIGHT - 1 && j == WIDTH - 1)){
-                map[i][j] = "#";
-            } else {
-                map[i][j] = " ";
-            }
-        }
+    case 'g':
+        printw("Kill Goblin: %s", mob.name);
+        break;
+    case 't':
+        printw("Kill Troll: %s", mob.name);
+        break;
+    case 'o':
+        printw("Kill Ork: %s", mob.name);
+        break;
     }
     
-}
-
-struct Monsters Summon_Monsters() {
-    struct Monsters goblin;
-    goblin.x = rand() % (HEIGHT + 1 - 1) + 1;
-    goblin.y = rand() % (WIDTH + 1 - 1) + 1;
-    goblin.pointer = 'g';
-    goblin.hp = 2;
-    goblin.attak = 2;
-    strcpy(goblin.name, "Goblin Moblin");
-
-    return goblin;
-}
-
-void player_info(int i, struct Player player) {
-    if (i == 1) {
-        printw("  Hello player");
-    }
-    else if (i == 2) {
-        printw("  HP : %d", player.hp);
-    }
-    else if (i == 3 ) {
-        printw("  Attak : %d", player.attak);
-    }
-    else if (i == 4) {
-        printw("  Gold : %d", player.gold);
-    }
-    else if (i == 5) {
-        printw("  Sunduk : %d", player.sunduk);
-    }
 }
