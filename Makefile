@@ -3,7 +3,14 @@ BUILD=build/
 
 all : build
 
-build: rogalic.c
+build: rogalic
 
-rogalic.c:
+rogalic: 
 	$(CC) src/*.c -o $(BUILD)rogalic -lncurses
+
+
+clean:
+	rm $(BUILD)* src/*.o
+
+rebuild:
+	clean build
