@@ -41,6 +41,11 @@ int check_kill(struct Player *p, struct Monsters m) {
 }
 
 void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob) {
+    start_color(); // Инициализация цветов ncurses
+    init_pair(1, COLOR_YELLOW, COLOR_BLACK); // Красный текст на черном фоне
+    init_pair(2, COLOR_RED, COLOR_BLACK); // Зеленый текст на черном фоне
+    init_pair(3, COLOR_GREEN, COLOR_BLACK); // Желтый текст на черном фоне
+
     for (int i = 0; i < HEIGHT; i++)
     {
         for (int j = 0; j < WIDTH; j++)
@@ -48,7 +53,19 @@ void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob
             if(i == player.x && j == player.y){
                 printw("@");
             } else if(i == mob.x && j == mob.y){
+                switch (mob.pointer) {
+                    case 'g':
+                        attron(COLOR_PAIR(1));
+                        break;
+                    case 't':
+                        attron(COLOR_PAIR(2));
+                        break;
+                    case 'o':
+                        attron(COLOR_PAIR(3));
+                        break;
+                }
                 printw("%c", mob.pointer);
+                attroff(COLOR_PAIR(1) | COLOR_PAIR(2) | COLOR_PAIR(3));
             } else {
                 printw("%s", map[i][j]);
             }
@@ -56,16 +73,18 @@ void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob
         player_info(i, player);
         printw("\n");
     }
-}
-
-struct Monsters Summon_Monsters() {
-    struct Monsters goblin;
-    goblin.x = rand() % (HEIGHT + 1 - 1) + 1;
-    goblin.y = rand() % (WIDTH + 1 - 1) + 1;
-    goblin.pointer = 'g';
-    goblin.hp = 2;
-    goblin.attak = 2;
-    strcpy(goblin.name, "Goblin Moblin");
-
-    return goblin;
+    printw("\n");
+    switch (mob.pointer)
+    {
+    case 'g':
+        printw("Kill Goblin: %s", mob.name);
+        break;
+    case 't':
+        printw("Kill Troll: %s", mob.name);
+        break;
+    case 'o':
+        printw("Kill Ork: %s", mob.name);
+        break;
+    }
+    
 }
