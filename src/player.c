@@ -1,5 +1,5 @@
-#include "player.h"
 #include "rogalic.h"
+#include "player.h"
 
 struct Player initPlayer() {
     struct Player player;
@@ -18,7 +18,7 @@ struct Player initPlayer() {
     return player;
 }
 
-void moveple(struct Player *p, int ch) {
+void move_usr(struct Player *p, int ch) {
     switch (ch)
     {
         case 'w':

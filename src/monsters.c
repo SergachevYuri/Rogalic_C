@@ -1,4 +1,5 @@
 #include "rogalic.h"
+#include "monsters.h"
 
 const char *goblin_names[] = {
     "Grognar", "Squizz", "Urknak", "Blizztok", "Shnagg", "Trogzik",
@@ -33,36 +34,36 @@ struct Monsters Summon_Monsters()
     switch (who)
     {
     case 0:
-        rand_name = rand() % (count_goblin_names - 0);
-        monsters.x = rand() % (HEIGHT + 1 - 1) + 1;
-        monsters.y = rand() % (WIDTH + 1 - 1) + 1;
+        rand_name = rand() % count_goblin_names;
+        monsters.x = rand() % (HEIGHT - 2) + 1;
+        monsters.y = rand() % (WIDTH - 2) + 1;
         monsters.pointer = 'g';
         monsters.hp = 2;
         monsters.attak = 2;
         strcpy(monsters.name, goblin_names[rand_name]);
         break;
     case 1:
-        rand_name = rand() % (count_troll_names - 0);
-        monsters.x = rand() % (HEIGHT + 1 - 1) + 1;
-        monsters.y = rand() % (WIDTH + 1 - 1) + 1;
+        rand_name = rand() % count_troll_names;
+        monsters.x = rand() % (HEIGHT - 2) + 1;
+        monsters.y = rand() % (WIDTH - 2) + 1;
         monsters.pointer = 't';
         monsters.hp = 2;
         monsters.attak = 2;
         strcpy(monsters.name, troll_names[rand_name]);
         break;
     case 2:
-        rand_name = rand() % (count_orc_names - 0);
-        monsters.x = rand() % (HEIGHT + 1 - 1) + 1;
-        monsters.y = rand() % (WIDTH + 1 - 1) + 1;
+        rand_name = rand() % count_orc_names;
+        monsters.x = rand() % (HEIGHT - 2) + 1;
+        monsters.y = rand() % (WIDTH - 2) + 1;
         monsters.pointer = 'o';
         monsters.hp = 2;
         monsters.attak = 2;
         strcpy(monsters.name, orc_names[rand_name]);
         break;
     default:
-        rand_name = rand() % (count_goblin_names - 0);
-        monsters.x = rand() % (HEIGHT + 1 - 1) + 1;
-        monsters.y = rand() % (WIDTH + 1 - 1) + 1;
+        rand_name = rand() % count_goblin_names;
+        monsters.x = rand() % (HEIGHT - 2) + 1;
+        monsters.y = rand() % (WIDTH - 2) + 1;
         monsters.pointer = 'g';
         monsters.hp = 2;
         monsters.attak = 2;

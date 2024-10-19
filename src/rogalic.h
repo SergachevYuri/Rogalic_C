@@ -1,5 +1,5 @@
-#ifndef ROGALIC_H
-#define ROGALIC_H
+#ifndef ROGALIC_H_
+#define ROGALIC_H_
 #include <stdio.h>
 #include <ncurses.h>
 #include <string.h>
@@ -7,15 +7,14 @@
 #include <time.h>
 #include <locale.h>
 
+#include "constant.h"
 #include "monsters.h"
+#include "player.h"
+#include "dungeons.h"
 
-#define HEIGHT 30
-#define WIDTH 100
 
-struct Player initPlayer();
+void init_games();
 void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob);
-void dungeons(char* map[HEIGHT][WIDTH]);
-struct Monsters Summon_Monsters();
-void player_info(int i, struct Player player);
+
 int check_kill(struct Player *p, struct Monsters m);
 #endif

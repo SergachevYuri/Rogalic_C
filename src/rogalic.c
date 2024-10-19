@@ -1,25 +1,21 @@
 #include "rogalic.h"
-#include "player.h"
-
 
 int main() {
-    setlocale(LC_CTYPE, "ru_RU.UTF8");
     char* map[HEIGHT][WIDTH];
     struct Monsters mob;
     int ch = 0;
-    srand(time(0));
     system("clear");
     struct Player player = initPlayer();
-    initscr();
-    noecho();
-    curs_set(FALSE);
+
+    init_games();
+
     dungeons(map);
     mob = Summon_Monsters();
     graphic(player, map, mob);
     while (ch != 'q')
     {
         ch = getch();
-        moveple(&player, ch);
+        move_usr(&player, ch);
         if(check_kill(&player, mob)) {
             mob = Summon_Monsters();
         }
@@ -29,6 +25,13 @@ int main() {
     }
     endwin();
     return 0;
+}
+
+void init_games() {
+    srand(time(0));
+    initscr();
+    noecho();
+    curs_set(FALSE);
 }
 
 int check_kill(struct Player *p, struct Monsters m) {
