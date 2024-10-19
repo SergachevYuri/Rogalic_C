@@ -30,6 +30,7 @@ void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob
                 printf("%s", map[i][j]);
             }
         }
+        Player_Info(i, player);
         printf("\n");
     }
     
