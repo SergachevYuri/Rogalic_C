@@ -27,6 +27,7 @@ void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob
                 printf("%s", map[i][j]);
             }
         }
+        Player_Info(i, player);
         printf("\n");
     }
     
@@ -37,7 +38,7 @@ void dungeons(char* map[HEIGHT][WIDTH]) {
     {
         for (int j = 0; j < WIDTH; j++)
         {
-            if((i == 0 && j != 0 && j != WIDTH) || (i == HEIGHT - 1 && j != 0 && j != WIDTH)) {
+            if((i == 0 && j != 0 && j != WIDTH - 1) || (i == HEIGHT - 1 && j != 0 && j != WIDTH - 1)) {
                 map[i][j] = "#";
             } else if((i != 0 && i != HEIGHT - 1 && j == 0) || (i != 0 && i != HEIGHT - 1 && j == WIDTH - 1)){
                 map[i][j] = "#";
@@ -60,4 +61,15 @@ struct Monsters Summon_Monsters() {
     strcpy(goblin.name, "Goblin Moblin");
 
     return goblin;
+}
+
+// Функция для вывода информации о пользователи с права от карты
+// Выводим HP ATTAK GOLD Сундуков
+// Описание клавиш
+void Player_Info(int i, struct Player player) {
+    if(i == 1) {
+        printf("  Hello Player Name");
+    } else if (i == 2) {
+        printf("  HP: %d", player.hp);
+    }
 }

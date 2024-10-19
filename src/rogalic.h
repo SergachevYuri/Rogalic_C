@@ -11,3 +11,4 @@
 void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob);
 void dungeons(char* map[HEIGHT][WIDTH]);
 struct Monsters Summon_Monsters();
+void Player_Info(int i, struct Player player);
