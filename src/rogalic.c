@@ -1,7 +1,8 @@
 #include "rogalic.h"
 
+char* map[HEIGHT][WIDTH];
+
 int main() {
-    char* map[HEIGHT][WIDTH];
     struct Monsters mob;
     int ch = 0;
     system("clear");
@@ -9,7 +10,7 @@ int main() {
 
     init_games();
 
-    dungeons(map);
+    init_dungeons(map);
     mob = Summon_Monsters();
     graphic(player, map, mob);
     while (ch != 'q')

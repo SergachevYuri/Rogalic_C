@@ -1,6 +1,8 @@
 #include "rogalic.h"
 #include "monsters.h"
 
+extern char* map[HEIGHT][WIDTH];
+
 const char *goblin_names[] = {
     "Grognar", "Squizz", "Urknak", "Blizztok", "Shnagg", "Trogzik",
     "Krivz", "Mokshak", "Gnurt", "Plok", "Vreksh", "Zurmp", "Kraksh",
@@ -35,8 +37,7 @@ struct Monsters Summon_Monsters()
     {
     case 0:
         rand_name = rand() % count_goblin_names;
-        monsters.x = rand() % (HEIGHT - 2) + 1;
-        monsters.y = rand() % (WIDTH - 2) + 1;
+        put_place(&monsters);
         monsters.pointer = 'g';
         monsters.hp = 2;
         monsters.attak = 2;
@@ -44,8 +45,7 @@ struct Monsters Summon_Monsters()
         break;
     case 1:
         rand_name = rand() % count_troll_names;
-        monsters.x = rand() % (HEIGHT - 2) + 1;
-        monsters.y = rand() % (WIDTH - 2) + 1;
+        put_place(&monsters);
         monsters.pointer = 't';
         monsters.hp = 2;
         monsters.attak = 2;
@@ -53,8 +53,7 @@ struct Monsters Summon_Monsters()
         break;
     case 2:
         rand_name = rand() % count_orc_names;
-        monsters.x = rand() % (HEIGHT - 2) + 1;
-        monsters.y = rand() % (WIDTH - 2) + 1;
+        put_place(&monsters);
         monsters.pointer = 'o';
         monsters.hp = 2;
         monsters.attak = 2;
@@ -62,8 +61,7 @@ struct Monsters Summon_Monsters()
         break;
     default:
         rand_name = rand() % count_goblin_names;
-        monsters.x = rand() % (HEIGHT - 2) + 1;
-        monsters.y = rand() % (WIDTH - 2) + 1;
+        put_place(&monsters);
         monsters.pointer = 'g';
         monsters.hp = 2;
         monsters.attak = 2;
@@ -72,4 +70,17 @@ struct Monsters Summon_Monsters()
     }
 
     return monsters;
+}
+
+
+void put_place(struct Monsters* monster) {
+    int x;
+    int y;
+    do {
+        x = rand() % (HEIGHT - 2) + 1;
+        y = rand() % (WIDTH - 2) + 1;
+    }while(*map[x][y] == '#');
+
+    monster->x = x;
+    monster->y = y;
 }
