@@ -18,6 +18,7 @@ struct Player {
 struct Player initPlayer();
 void move_usr(struct Player *p, int ch, char* map[HEIGHT][WIDTH]);
 void player_info(int i, struct Player player);
+void put_place_player(struct Player* player);
 
 
 
