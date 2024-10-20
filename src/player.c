@@ -1,10 +1,12 @@
 #include "rogalic.h"
 #include "player.h"
 
+extern char* map[HEIGHT][WIDTH];
+
 struct Player initPlayer() {
     struct Player player;
-    player.x = rand() % (HEIGHT - 2) + 1;
-    player.y = rand() % (WIDTH - 2) + 1;
+    player.x = 10;
+    player.y = 10;
     player.hp = 10;
     player.attak = 1;
     player.gold = 0;
@@ -52,4 +54,14 @@ void player_info(int i, struct Player player) {
     else if (i == 5) {
         printw("  Sunduk : %d", player.sunduk);
     }
+}
+
+void put_place_player(struct Player* player) {
+    int x, y;
+    do{
+        x = rand() % (HEIGHT - 2) + 1;
+        y = rand() % (WIDTH - 2) + 1;
+    }while(*map[x][y] == '#');
+    player->x = x;
+    player->y = y;
 }

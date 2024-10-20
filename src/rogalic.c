@@ -11,6 +11,7 @@ int main() {
     init_games();
 
     init_dungeons(map);
+    put_place_player(&player);
     mob = Summon_Monsters();
     graphic(player, map, mob);
     while (ch != 'q')
