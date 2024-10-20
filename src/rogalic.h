@@ -17,4 +17,8 @@ void init_games();
 void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob);
 
 int check_kill(struct Player *p, struct Monsters m);
+
+void print_dungeons(char* map[HEIGHT][WIDTH]);
+void print_player(struct Player player);
+void print_monsters(struct Monsters monsters);
 #endif

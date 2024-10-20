@@ -1,8 +1,9 @@
 #include "rogalic.h"
 
-char* map[HEIGHT][WIDTH];
+char *map[HEIGHT][WIDTH];
 
-int main() {
+int main()
+{
     struct Monsters mob;
     int ch = 0;
     system("clear");
@@ -18,7 +19,8 @@ int main() {
     {
         ch = getch();
         move_usr(&player, ch, map);
-        if(check_kill(&player, mob)) {
+        if (check_kill(&player, mob))
+        {
             mob = Summon_Monsters();
         }
         clear();
@@ -34,63 +36,68 @@ void init_games() {
     initscr();
     noecho();
     curs_set(FALSE);
+    cbreak();
+    start_color();
+    init_pair(1, COLOR_RED, COLOR_BLACK);    // Красный текст на черном фоне
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);  // Зеленый текст на черном фоне
+    init_pair(3, COLOR_YELLOW, COLOR_BLACK); // Желтый текст на черном фоне
 }
 
-int check_kill(struct Player *p, struct Monsters m) {
-    if (p->x == m.x && p->y == m.y) {
+int check_kill(struct Player *p, struct Monsters m)
+{
+    if (p->x == m.x && p->y == m.y)
+    {
         p->hp -= m.attak;
         p->gold = p->gold + 10;
         return 1;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }
 
-void graphic(struct Player player, char* map[HEIGHT][WIDTH], struct Monsters mob) {
-    start_color(); // Инициализация цветов ncurses
-    init_pair(1, COLOR_YELLOW, COLOR_BLACK); // Красный текст на черном фоне
-    init_pair(2, COLOR_RED, COLOR_BLACK); // Зеленый текст на черном фоне
-    init_pair(3, COLOR_GREEN, COLOR_BLACK); // Желтый текст на черном фоне
+void graphic(struct Player player, char *map[HEIGHT][WIDTH], struct Monsters mob)
+{
+    print_dungeons(map);
+    print_player(player);
+    print_monsters(mob);
+}
 
+void print_dungeons(char *map[HEIGHT][WIDTH])
+{
     for (int i = 0; i < HEIGHT; i++)
     {
         for (int j = 0; j < WIDTH; j++)
         {
-            if(i == player.x && j == player.y){
-                printw("@");
-            } else if(i == mob.x && j == mob.y){
-                switch (mob.pointer) {
-                    case 'g':
-                        attron(COLOR_PAIR(1));
-                        break;
-                    case 't':
-                        attron(COLOR_PAIR(2));
-                        break;
-                    case 'o':
-                        attron(COLOR_PAIR(3));
-                        break;
-                }
-                printw("%c", mob.pointer);
-                attroff(COLOR_PAIR(1) | COLOR_PAIR(2) | COLOR_PAIR(3));
-            } else {
-                printw("%s", map[i][j]);
-            }
+            mvprintw(i, j, "%s", map[i][j]);
         }
-        player_info(i, player);
-        printw("\n");
     }
-    printw("\n");
-    switch (mob.pointer)
+}
+
+void print_player(struct Player player)
+{
+    mvaddch(player.x, player.y, '@');
+}
+
+void print_monsters(struct Monsters monsters)
+{
+    int color_pair = 0;
+
+    switch (monsters.pointer)
     {
     case 'g':
-        printw("Kill Goblin: %s", mob.name);
+        color_pair = 1;
         break;
     case 't':
-        printw("Kill Troll: %s", mob.name);
+        color_pair = 2;
         break;
     case 'o':
-        printw("Kill Ork: %s", mob.name);
+        color_pair = 3;
         break;
     }
-    
+    attron(COLOR_PAIR(color_pair));
+    mvaddch(monsters.x, monsters.y, monsters.pointer);
+    attroff(COLOR_PAIR(color_pair));
+
 }
