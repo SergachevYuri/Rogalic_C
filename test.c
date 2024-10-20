@@ -54,10 +54,10 @@ void create_v_corridor(int y1, int y2, int x) {
 // Генерация комнат
 void generate_rooms(int num_rooms, int rooms[][2]) {
     for (int i = 0; i < num_rooms; i++) {
-        int room_width = rand() % 7 + 4;
-        int room_height = rand() % 4 + 4;
-        int room_x = rand() % (WIDTH - room_width - 1);
-        int room_y = rand() % (HEIGHT - room_height - 1);
+        int room_width = rand() % 12 + 4;
+        int room_height = rand() % 8 + 4;
+        int room_x = rand() % (WIDTH - room_width - 1) + 1;
+        int room_y = rand() % (HEIGHT - room_height - 1) + 1;
 
         create_room(room_x, room_y, room_width, room_height);
         rooms[i][0] = room_x + room_width / 2;  // центр комнаты (x)
@@ -103,14 +103,14 @@ void print_dungeon() {
 }
 
 int main() {
-    srand(time(NULL));
+    srand(time(0));
 
     // Инициализация карты
     init_dungeon();
 
     // Количество комнат
-    int num_rooms = 6;
-    int rooms[6][2];  // Координаты центров комнат
+    int num_rooms = 8;
+    int rooms[8][2];  // Координаты центров комнат
 
     // Генерация комнат и коридоров
     generate_rooms(num_rooms, rooms);
