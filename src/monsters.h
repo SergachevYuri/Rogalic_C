@@ -17,5 +17,5 @@ struct Monsters {
 
 
 struct Monsters Summon_Monsters();
-
+void put_place(struct Monsters* monster);
 #endif
