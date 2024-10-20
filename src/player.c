@@ -3,8 +3,8 @@
 
 struct Player initPlayer() {
     struct Player player;
-    player.x = 10;
-    player.y = 10;
+    player.x = rand() % (HEIGHT - 2) + 1;
+    player.y = rand() % (WIDTH - 2) + 1;
     player.hp = 10;
     player.attak = 1;
     player.gold = 0;
@@ -18,20 +18,20 @@ struct Player initPlayer() {
     return player;
 }
 
-void move_usr(struct Player *p, int ch) {
+void move_usr(struct Player *p, int ch, char* map[HEIGHT][WIDTH]) {
     switch (ch)
     {
         case 'w':
-            if(p->x - 1 > 0) p->x--;
+            if(*map[p->x - 1][p->y] != '#') p->x--;
             break;
         case 's':
-            if(p->x + 1 < HEIGHT - 1) p->x++;
+            if(*map[p->x + 1][p->y] != '#') p->x++;
             break;
         case 'a':
-            if(p->y - 1 > 0) p->y--;
+            if(*map[p->x][p->y - 1] != '#') p->y--;
             break;
         case 'd':
-            if(p->y + 1 < WIDTH - 1)p->y++;
+            if(*map[p->x][p->y + 1] != '#')p->y++;
             break;
     }
 }

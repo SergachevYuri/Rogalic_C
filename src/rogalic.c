@@ -15,7 +15,7 @@ int main() {
     while (ch != 'q')
     {
         ch = getch();
-        move_usr(&player, ch);
+        move_usr(&player, ch, map);
         if(check_kill(&player, mob)) {
             mob = Summon_Monsters();
         }
