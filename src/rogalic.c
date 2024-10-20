@@ -37,6 +37,7 @@ void init_games() {
 
 int check_kill(struct Player *p, struct Monsters m) {
     if (p->x == m.x && p->y == m.y) {
+        p->hp -= m.attak;
         p->gold = p->gold + 10;
         return 1;
     } else {

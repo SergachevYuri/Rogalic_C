@@ -39,33 +39,25 @@ struct Monsters Summon_Monsters()
         rand_name = rand() % count_goblin_names;
         put_place(&monsters);
         monsters.pointer = 'g';
-        monsters.hp = 2;
-        monsters.attak = 2;
+        monsters.hp = rand() % (2 + 1) + 1;
+        monsters.attak = 1;
         strcpy(monsters.name, goblin_names[rand_name]);
         break;
     case 1:
         rand_name = rand() % count_troll_names;
         put_place(&monsters);
         monsters.pointer = 't';
-        monsters.hp = 2;
-        monsters.attak = 2;
+        monsters.hp = rand() % (3 + 1) + 2;
+        monsters.attak = rand() % (3 + 0) + 1;
         strcpy(monsters.name, troll_names[rand_name]);
         break;
     case 2:
         rand_name = rand() % count_orc_names;
         put_place(&monsters);
         monsters.pointer = 'o';
-        monsters.hp = 2;
-        monsters.attak = 2;
+        monsters.hp = rand() % (4 + 1) + 2;
+        monsters.attak = rand() % (3 + 1) + 1;
         strcpy(monsters.name, orc_names[rand_name]);
-        break;
-    default:
-        rand_name = rand() % count_goblin_names;
-        put_place(&monsters);
-        monsters.pointer = 'g';
-        monsters.hp = 2;
-        monsters.attak = 2;
-        strcpy(monsters.name, goblin_names[rand_name]);
         break;
     }
 
